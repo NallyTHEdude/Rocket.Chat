@@ -1,7 +1,7 @@
 import { MongoInternals } from 'meteor/mongo';
 
-const timeoutQuery = parseInt(process.env.OBSERVERS_CHECK_TIMEOUT) || 2 * 60 * 1000;
-const interval = parseInt(process.env.OBSERVERS_CHECK_INTERVAL) || 60 * 1000;
+const timeoutQuery = parseInt(process.env.OBSERVERS_CHECK_TIMEOUT ?? '') || 2 * 60 * 1000;
+const interval = parseInt(process.env.OBSERVERS_CHECK_INTERVAL ?? '') || 60 * 1000;
 const debug = Boolean(process.env.OBSERVERS_CHECK_DEBUG);
 
 /**
@@ -30,9 +30,12 @@ setInterval(() => {
 	const now = Date.now();
 	const driver = MongoInternals.defaultRemoteCollectionDriver();
 
-	Object.entries(driver.mongo._observeMultiplexers)
-		.filter(([, { _observeDriver }]) => _observeDriver._phase === 'QUERYING' && timeoutQuery < now - _observeDriver._phaseStartTime)
-		.forEach(([observeKey, { _observeDriver }]) => {
+	Object.entries((driver.mongo as any)._observeMultiplexers)
+		.filter(
+			([, { _observeDriver }]: [string, any]) =>
+				_observeDriver._phase === 'QUERYING' && timeoutQuery < now - _observeDriver._phaseStartTime,
+		)
+		.forEach(([observeKey, { _observeDriver }]: [string, any]) => {
 			console.error('TIMEOUT QUERY OPERATION', {
 				observeKey,
 				writesToCommitWhenWeReachSteadyLength: _observeDriver._writesToCommitWhenWeReachSteady.length,
