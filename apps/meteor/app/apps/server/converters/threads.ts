@@ -1,4 +1,4 @@
-import type { IAppRoomsConverter, IAppThreadsConverter, IAppUsersConverter, IAppsMessage, IAppsUser } from '@rocket.chat/apps';
+import type { IAppServerOrchestrator, IAppThreadsConverter, IAppUsersConverter, IAppsMessage, IAppsUser } from '@rocket.chat/apps';
 import type { IMessage as AppsEngineMessage, IMessageAttachment } from '@rocket.chat/apps-engine/definition/messages';
 import type { IRoom } from '@rocket.chat/apps-engine/definition/rooms';
 import { isEditedMessage } from '@rocket.chat/core-typings';
@@ -8,25 +8,8 @@ import { Messages } from '@rocket.chat/models';
 import { cachedFunction } from './cachedFunction';
 import { transformMappedData } from './transformMappedData';
 
-// eslint-disable-next-line @typescript-eslint/naming-convention
-interface Orchestrator {
-	rooms: () => {
-		convertById: IAppRoomsConverter['convertById'];
-	};
-	users: () => {
-		convertById: IAppUsersConverter['convertById'];
-		convertToApp: IAppUsersConverter['convertToApp'];
-	};
-}
-
 export class AppThreadsConverter implements IAppThreadsConverter {
-	constructor(
-		private readonly orch: {
-			getConverters: () => {
-				get: <O extends keyof Orchestrator>(key: O) => ReturnType<Orchestrator[O]>;
-			};
-		},
-	) {
+	constructor(private readonly orch: IAppServerOrchestrator) {
 		this.orch = orch;
 	}
 
@@ -66,8 +49,8 @@ export class AppThreadsConverter implements IAppThreadsConverter {
 	async convertMessage(
 		msgObj: IMessage,
 		room: IRoom,
-		convertUserById: ReturnType<Orchestrator['users']>['convertById'],
-		convertToApp: ReturnType<Orchestrator['users']>['convertToApp'],
+		convertUserById: IAppUsersConverter['convertById'],
+		convertToApp: IAppUsersConverter['convertToApp'],
 	): Promise<AppsEngineMessage> {
 		const map = {
 			id: '_id',
