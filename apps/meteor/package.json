@@ -58,8 +58,7 @@
 		"testunit": "yarn .testunit:definition && yarn .testunit:jest && yarn .testunit:server:cov",
 		"testunit-watch": "TS_NODE_COMPILER_OPTIONS='{\"module\": \"commonjs\"}' mocha --watch --config ./.mocharc.js",
 		"typecheck": "meteor lint && cross-env NODE_OPTIONS=\"--max-old-space-size=8192\" tsc --noEmit --skipLibCheck",
-		"version": "node .scripts/version.js",
-		"vite:debug": "DEBUG_METEOR_VITE_EXPORTS=true vite"
+		"version": "node .scripts/version.js"
 	},
 	"browserslist": [
 		"last 2 versions",
@@ -324,20 +323,10 @@
 		"@rocket.chat/livechat": "workspace:^",
 		"@rocket.chat/mock-providers": "workspace:^",
 		"@rocket.chat/tsconfig": "workspace:*",
-<<<<<<< HEAD
-<<<<<<< HEAD
+		"@rolldown/pluginutils": "^1.0.0-rc.2",
 		"@storybook/addon-a11y": "^8.6.15",
 		"@storybook/addon-essentials": "^8.6.15",
 		"@storybook/addon-interactions": "^8.6.15",
-=======
-		"@rolldown/pluginutils": "^1.0.0-rc.1",
-=======
-		"@rolldown/pluginutils": "^1.0.0-rc.2",
->>>>>>> 40ef041aeb (feat: globals and resolve plugin)
-		"@storybook/addon-a11y": "^8.6.14",
-		"@storybook/addon-essentials": "^8.6.14",
-		"@storybook/addon-interactions": "^8.6.14",
->>>>>>> 19c820552f (refactor: combine meteor plugins [skip ci])
 		"@storybook/addon-styling-webpack": "^1.0.1",
 		"@storybook/addon-webpack5-compiler-swc": "~3.0.0",
 		"@storybook/react": "^8.6.15",
