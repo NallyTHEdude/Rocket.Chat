@@ -31,5 +31,6 @@ module.exports = {
 		'app/livechat/server/lib/**/*.spec.ts',
 		'!app/custom-oauth/server/**/*.spec.ts',
 		'!app/highlight-words/client/**/*.spec.ts',
+		'!app/mentions/server/**/*.spec.ts',
 	],
 };
