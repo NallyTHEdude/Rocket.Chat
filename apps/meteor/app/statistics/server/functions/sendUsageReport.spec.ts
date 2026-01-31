@@ -1,39 +1,37 @@
-import { expect } from 'chai';
-import { describe, it, beforeEach, afterEach } from 'mocha';
-import proxyquire from 'proxyquire';
-import sinon from 'sinon';
+import type { Logger } from '@rocket.chat/logger';
 
-const sandbox = sinon.createSandbox();
+import { sendUsageReport } from './sendUsageReport';
 
-const mocks = {
+const mockLogger: Logger = {
+	error: jest.fn(),
+} as any;
+
+jest.mock('@rocket.chat/models', () => ({
 	Statistics: {
-		findLast: sandbox.stub(),
-		updateOne: sandbox.stub(),
+		findLast: jest.fn(),
+		updateOne: jest.fn(),
 	},
-	statistics: {
-		save: sandbox.stub(),
-	},
-	serverFetch: sandbox.stub(),
-	getWorkspaceAccessToken: sandbox.stub().resolves('workspace-token'),
-	Meteor: {
-		absoluteUrl: sandbox.stub().returns('http://localhost:3000/'),
-	},
-	logger: {
-		error: sandbox.stub(),
-	},
-};
+}));
 
-const { sendUsageReport } = proxyquire.noCallThru().load('./sendUsageReport', {
-	'@rocket.chat/models': { Statistics: mocks.Statistics },
-	'@rocket.chat/server-fetch': { serverFetch: mocks.serverFetch },
-	'..': { statistics: mocks.statistics },
-	'../../../cloud/server': { getWorkspaceAccessToken: mocks.getWorkspaceAccessToken },
-	'meteor/meteor': { Meteor: mocks.Meteor },
-});
+jest.mock('@rocket.chat/server-fetch', () => ({
+	serverFetch: jest.fn(),
+}));
+
+jest.mock('..', () => ({
+	statistics: { save: jest.fn() },
+}));
+
+jest.mock('../../../cloud/server', () => ({
+	getWorkspaceAccessToken: jest.fn().mockResolvedValue('workspace-token'),
+}));
+
+jest.mock('meteor/meteor', () => ({
+	Meteor: { absoluteUrl: jest.fn().mockReturnValue('http://localhost:3000/') },
+}));
 
 describe('sendUsageReport', () => {
 	beforeEach(() => {
-		sandbox.resetHistory();
+		jest.clearAllMocks();
 	});
 
 	afterEach(() => {
@@ -41,23 +39,33 @@ describe('sendUsageReport', () => {
 	});
 
 	it('should save statistics locally and not send to collector when RC_DISABLE_STATISTICS_REPORTING is true', async () => {
+		const {
+			statistics: { save: mockStatisticsSave },
+		} = await import('..');
+		const { serverFetch: mockServerFetch } = await import('@rocket.chat/server-fetch');
+
 		process.env.RC_DISABLE_STATISTICS_REPORTING = 'true';
 
-		const result = await sendUsageReport(mocks.logger);
+		const result = await sendUsageReport(mockLogger);
 
-		expect(mocks.statistics.save.called).to.be.true;
-		expect(mocks.serverFetch.called).to.be.false;
-		expect(result).to.be.undefined;
+		expect(mockStatisticsSave).toHaveBeenCalled();
+		expect(mockServerFetch).not.toHaveBeenCalled();
+		expect(result).toBeUndefined();
 	});
 
 	it('should save statistics locally and send to collector when RC_DISABLE_STATISTICS_REPORTING is false', async () => {
+		const {
+			statistics: { save: mockStatisticsSave },
+		} = await import('..');
+		const { serverFetch: mockServerFetch } = await import('@rocket.chat/server-fetch');
+
 		process.env.RC_DISABLE_STATISTICS_REPORTING = 'false';
 
-		const result = await sendUsageReport(mocks.logger);
+		const result = await sendUsageReport(mockLogger);
 
-		expect(mocks.statistics.save.called).to.be.true;
-		expect(mocks.serverFetch.calledOnce).to.be.true;
-		expect(mocks.serverFetch.calledWith('https://collector.rocket.chat/', sinon.match({ method: 'POST' }))).to.be.true;
-		expect(result).to.be.undefined;
+		expect(mockStatisticsSave).toHaveBeenCalled();
+		expect(mockServerFetch).toHaveBeenCalledTimes(1);
+		expect(mockServerFetch).toHaveBeenCalledWith('https://collector.rocket.chat/', expect.objectContaining({ method: 'POST' }));
+		expect(result).toBeUndefined();
 	});
 });
