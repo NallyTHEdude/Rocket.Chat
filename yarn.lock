@@ -4395,7 +4395,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@jridgewell/sourcemap-codec@npm:^1.5.5":
+"@jridgewell/sourcemap-codec@npm:^1.4.15, @jridgewell/sourcemap-codec@npm:^1.5.5":
   version: 1.5.5
   resolution: "@jridgewell/sourcemap-codec@npm:1.5.5"
   checksum: 10/5d9d207b462c11e322d71911e55e21a4e2772f71ffe8d6f1221b8eb5ae6774458c1d242f897fb0814e8714ca9a6b498abfa74dfe4f434493342902b1a48b33a5
@@ -9729,6 +9729,7 @@ __metadata:
     eslint-plugin-storybook: "npm:~0.11.6"
     eslint-plugin-testing-library: "npm:~6.4.0"
     eslint-plugin-you-dont-need-lodash-underscore: "npm:~6.14.0"
+    esrap: "npm:^2.2.2"
     eventemitter3: "npm:^5.0.4"
     exif-be-gone: "npm:^1.5.1"
     expiry-map: "npm:^2.0.0"
@@ -21331,6 +21332,15 @@ __metadata:
   dependencies:
     estraverse: "npm:^5.1.0"
   checksum: 10/e65fcdfc1e0ff5effbf50fb4f31ea20143ae5df92bb2e4953653d8d40aa4bc148e0d06117a592ce4ea53eeab1dafdfded7ea7e22a5be87e82d73757329a1b01d
+  languageName: node
+  linkType: hard
+
+"esrap@npm:^2.2.2":
+  version: 2.2.2
+  resolution: "esrap@npm:2.2.2"
+  dependencies:
+    "@jridgewell/sourcemap-codec": "npm:^1.4.15"
+  checksum: 10/fc247d268239f65cfc860c9fa51fd5fc6cb2954a68354d057d029bed67c5e7e71a4e9060905338b82f7aea8bafc96ba0d3bd0c960144fa0ceb4216ffa87ec543
   languageName: node
   linkType: hard
 
