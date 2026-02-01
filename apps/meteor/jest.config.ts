@@ -44,6 +44,7 @@ export default {
 				'<rootDir>/app/mentions/server/*.spec.ts',
 				'<rootDir>/app/statistics/**/*.spec.ts',
 				'<rootDir>/app/*/lib/**/*.spec.ts',
+				'<rootDir>/app/apps/server/converters/*.spec.ts',
 				'<rootDir>/server/lib/auditServerEvents/**.spec.ts',
 				'<rootDir>/server/settings/lib/**.spec.ts',
 				'<rootDir>/server/cron/**.spec.ts',
