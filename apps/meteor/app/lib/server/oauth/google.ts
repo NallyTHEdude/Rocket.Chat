@@ -62,7 +62,7 @@ registerAccessTokenService('google', async (options) => {
 	};
 
 	const fields: Record<string, any> = {};
-	const { whitelistedFields } = Google as any;
+	const { whitelistedFields } = Google;
 	for (const key of whitelistedFields) {
 		if (Object.prototype.hasOwnProperty.call(identity, key)) {
 			fields[key] = identity[key];
