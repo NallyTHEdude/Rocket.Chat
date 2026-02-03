@@ -5929,7 +5929,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@oxc-project/types@npm:=0.111.0, @oxc-project/types@npm:^0.111.0":
+"@oxc-project/types@npm:=0.111.0":
   version: 0.111.0
   resolution: "@oxc-project/types@npm:0.111.0"
   checksum: 10/8482551ce7ae2d6103108c0b5463d53592a545a3eb100fc955648af8e38442cf36706d1671eded9eab4b8e9f1f074d23ef046609a530434920a63e1d74b56733
@@ -9590,7 +9590,7 @@ __metadata:
     "@opentelemetry/api": "npm:^1.9.0"
     "@opentelemetry/exporter-trace-otlp-grpc": "npm:^0.54.2"
     "@opentelemetry/sdk-node": "npm:^0.54.2"
-    "@oxc-project/types": "npm:^0.111.0"
+    "@oxc-project/types": "npm:^0.112.0"
     "@parse/node-apn": "npm:^7.0.1"
     "@playwright/test": "npm:^1.52.0"
     "@react-aria/toolbar": "npm:^3.0.0-nightly.5042"
@@ -9963,7 +9963,7 @@ __metadata:
     ua-parser-js: "npm:~1.0.41"
     underscore: "npm:^1.13.7"
     universal-perf-hooks: "npm:^1.0.1"
-    vite: "npm:^8.0.0-beta.11"
+    vite: "npm:^8.0.0-beta.12"
     vite-plugin-inspect: "npm:^11.3.3"
     webdav: "npm:^4.11.5"
     webpack: "npm:~5.99.9"
@@ -11016,7 +11016,7 @@ __metadata:
     react-virtuoso: "npm:^4.12.0"
     reactflow: "npm:^11.11.4"
     typescript: "npm:~5.9.3"
-    vite: "npm:^8.0.0-beta.11"
+    vite: "npm:^8.0.0-beta.12"
   languageName: unknown
   linkType: soft
 
@@ -37569,9 +37569,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"vite@npm:^8.0.0-beta.11":
-  version: 8.0.0-beta.11
-  resolution: "vite@npm:8.0.0-beta.11"
+"vite@npm:^8.0.0-beta.12":
+  version: 8.0.0-beta.12
+  resolution: "vite@npm:8.0.0-beta.12"
   dependencies:
     "@oxc-project/runtime": "npm:0.111.0"
     fdir: "npm:^6.5.0"
@@ -37621,7 +37621,7 @@ __metadata:
       optional: true
   bin:
     vite: bin/vite.js
-  checksum: 10/613b1454900aaefe8da5b127aa7e88ef205dc66cfb528b4c58ede9d53df73271f17c75091336e3a61879b5d83c291cf18c70601b98e2f1a8579b419556a07e8c
+  checksum: 10/e4aea1e6cced357e7505c525739ff7999c76f7644c17feffb5f026789da76da5ff349db4d2888e06d0ce0a38afcd69fc32d50ca9d7278c4f9032eceee0000de2
   languageName: node
   linkType: hard
 
